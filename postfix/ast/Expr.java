@@ -27,6 +27,22 @@ public abstract class Expr {
 	public interface Visitor<T> {
 		T visitNumberExpr(Number expr);
 		T visitBinopExpr(Binop expr);
+		T visitIDExpr(ID expressao);
+	}
+
+
+	public static class ID extends Expr {
+
+		public ID( String val ) {
+			this.val = val;
+		}
+
+		@Override
+		public <T> T accept( Visitor<T> vis ) {
+			return vis.visitIDExpr(this);
+		}
+
+		public final String val;
 	}
 
 	// Nested Expr classes here

@@ -33,12 +33,17 @@ import postfix.lexer.Token;
 import postfix.parser.Parser;
 import postfix.parser.ParserError;
 
+import java.util.HashMap;
+
 /**
  * @author Henrique Rebelo
  */
 public class Postfix {
 
-	private static final Interpreter interpreter = new Interpreter();
+	// private static final Interpreter interpreter = new Interpreter();
+
+	private static final Interpreter interpreter = new Interpreter( new HashMap<String, String>() );
+
 	private static boolean hasError = false;
 	private static boolean debugging = false;
 
@@ -53,7 +58,9 @@ public class Postfix {
 //		args [0] = "../StackerPrograms/program/Calc1.stk";
 //		args [1] = "../StackerPrograms/program/Calc2.stk";
 
-		debugging = false; // for interpretation phases
+		debugging = true;
+		// for interpretation phases
+
 		run(args, debugging);
 	}
 
@@ -99,6 +106,9 @@ public class Postfix {
 	 */
 	private static void run(String source) {
 		try {
+
+			interpreter.env.put("y", "10"); // adding the id y with value 10 to the interpreter hash map 
+
 			Scanner scanner = new Scanner(source);
 			List<Token> tokens = scanner.scan();
 

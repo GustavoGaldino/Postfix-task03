@@ -23,6 +23,7 @@ public class Regex {
 	// regex for literals recognition
 	private static final String NUM_REGEX = "(\\d)+"; // short for [0-9]
 	// regex for single-character operation recognition.
+	private static final String ID_REGEX = "^([a-zA-Z_][a-zA-Z\\d_]*)$"; // recognize ids (variables)
 	private static final String OP_REGEX = "(\\+|-|\\*|/)"; // recognizes as an operation
 	private static final String PLUS_REGEX = "(\\+)"; // for plus operation recognition
 	private static final String MINUS_REGEX = "(\\-)"; // for minus operation recognition
@@ -51,6 +52,10 @@ public class Regex {
 	
 	public static boolean isStar(String token) {
 		return token.matches(STAR_REGEX);
+	}
+
+	public static boolean isID(String tk) {
+		return tk.matches(ID_REGEX);
 	}
 	
 	/**

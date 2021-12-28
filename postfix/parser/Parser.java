@@ -54,6 +54,9 @@ public class Parser {
 			if(this.match(TokenType.NUM)) {
 				this.stack.push(this.number());
 			}
+			else if( this.match( TokenType.ID ) ) {
+				this.stack.push( this.id() );
+			}
 			// matching any of the operation tokens
 			else if(this.match(TokenType.PLUS, TokenType.MINUS, 
 					TokenType.SLASH, TokenType.STAR)) {
@@ -69,7 +72,10 @@ public class Parser {
 	}
 
 	private Expr binop() {
-		return new Expr.Binop(this.stack.pop(), this.stack.pop(), this.peek());
+		Expr rExp = this.stack.pop();
+		Expr lExp = this.stack.pop();
+		return new Expr.Binop(lExp, rExp, this.peek());
+		// return new Expr.Binop(this.stack.pop(), this.stack.pop(), this.peek());
 	}
 
 	private boolean match(TokenType... types) {
